@@ -1,28 +1,25 @@
 import os
-from dotenv import load_dotenv, dotenv_values
+from dotenv import load_dotenv
 from selenium import webdriver 
-from selenium.webdriver.edge.options import Options
-import selenium.webdriver.edge.service 
-from selenium.webdriver.edge.service import Service
 from selenium.webdriver.common.by import By
 import time
 from faker import Faker
 import random
 
 def inicializa_automator(valor):
-
     faker = Faker()
-    options = Options()
-    load_dotenv()
+    options = webdriver.EdgeOptions()
+    load_dotenv(override=True)  
 
-    dotenv_values(".env")
+    USER_DATA_DIR = os.getenv("COUNT_MICROSOFT")
+    PROFILE_DIR = os.getenv("USER_PROFILE")
 
-    # O BASICO PARA APENAS A CONTA PRINCIPAL< TIRE PROFILE PARA DEFAULT
-    
-    options.add_argument("--user-data-dir=C:\\Users\\Carlos L\\AppData\\Local\\Microsoft\\Edge\\User Data")
-    options.add_argument("--profile-directory=Default") 
+    print("User Data:", USER_DATA_DIR)
+    print("Profile Dir:", PROFILE_DIR)
 
-
+    options = webdriver.EdgeOptions()
+    options.add_argument(f"--user-data-dir={USER_DATA_DIR}")
+    options.add_argument(f"--profile-directory={PROFILE_DIR}")
     # Inicia o WebDriver
     driver = webdriver.Edge(options=options)
 
@@ -55,9 +52,6 @@ def inicializa_automator(valor):
         driver.find_element(By.XPATH,'//*[@id="search_icon"]').click()
         
         time.sleep(3)
-
-    #print(driver.title)
-    #print(driver.current_url)
 
     for repeat in range (0, valor):
         repeticao_de_busca_aleatoria()

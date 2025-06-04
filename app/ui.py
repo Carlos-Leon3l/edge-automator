@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk
 from main import inicializa_automator
 
+#ESSE ARQUIVO E O QUE DEVE SER INICIALIZADO 
 root = Tk()
 root.title("Microsoft Rewards Automator")
 
@@ -18,9 +19,9 @@ ttk.Spinbox(frm, textvariable=quantidade, from_=1, to=30, width=5, background="l
 
 def iniciar_busca():
     btn_inicializar.config(text="Executando...", state=DISABLED)
-    root.update_idletasks()  # Atualiza interface antes de iniciar o processo
+    root.update_idletasks() 
 
-    valor = quantidade.get()
+    valor = int(quantidade.get())
     inicializa_automator(valor)
 
     btn_inicializar.config(text="Inicializar", state=NORMAL)
